@@ -12,3 +12,13 @@ body {
   text-rendering: optimizeLegibility;
   hyphens: auto;
 }
+
+.login-btn {
+  height: 40px;
+  width: 150px;
+  color: #444;
+}
+
+.hide-btn {
+  visibility: hidden;
+}
