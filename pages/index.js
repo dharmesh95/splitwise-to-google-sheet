@@ -1,18 +1,28 @@
-import { useEffect } from 'react'
-import OAuth2 from '../components/OAuth2.js'
-import SplitwiseForm from '../components/SplitwiseForm.js'
-import { getTokenFromSession } from '../helper/session.js'
+import Head from 'next/head'
+import { useState } from 'react'
+import Expenses from '../components/Expenses'
+import Groups from '../components/Groups'
+import OAuth2 from '../components/SplitwiseLogin'
 import styles from '../styles/home.module.css'
 
 function Home() {
-  // const spliwiseData = useSplitwiseData()
+  const title = 'Export Splitwise expenses to Google Sheet'
 
   return (
-    <main className={styles.main}>
-      <h1>Export Splitwise expenses to Google Sheet</h1>
-      <SplitwiseForm />
-      <OAuth2 />
-    </main>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <title>{title}</title>
+      </Head>
+      <main className={styles.main}>
+        <h1 className="title">
+          {title}!
+        </h1>
+        <OAuth2 />
+        <Groups />
+        <Expenses />
+      </main>
+    </>
   )
 }
 

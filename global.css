@@ -11,12 +11,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   hyphens: auto;
+  background-color: #eaebfe;
 }
 
 .login-btn {
   height: 40px;
-  width: 150px;
-  color: #444;
+  width: 170px;
+  background-color: #FF7F00; /* Orange */
+  color: white;
+  font-weight: bold;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: Arial;
+  cursor: pointer;
 }
 
 .hide-btn {

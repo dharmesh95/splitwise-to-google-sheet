@@ -9,10 +9,10 @@ export default async (req, res) => {
       headers: myHeaders
     }
 
-    const response = await fetch('https://secure.splitwise.com/api/v3.0/get_current_user', requestOptions)
+    const response = await fetch(`https://secure.splitwise.com/api/v3.0/get_groups`, requestOptions)
     const data = await response.json()
-    res.status(200).json({ data })
+    res.status(200).json(data)
   } catch (error) {
-    res.status(500).json({ error })
+    res.status(500).json({ error: error.message })
   }
 }
