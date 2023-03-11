@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import OAuth2Login from 'react-simple-oauth2-login'
-import { useToken } from '../../context/token'
+import { useLocalStorage } from '../../context/LocalStorage'
 
 const onFailure = response => console.error(response)
 
 const SplitwiseLogin = () => {
     const [buttonText, setButtonText] = useState('Login to Splitwise')
     const [className, setClassName] = useState('')
-    const { token, setToken } = useToken();
+    const { token, setToken } = useLocalStorage();
 
     useEffect(() => {
         if (token) {

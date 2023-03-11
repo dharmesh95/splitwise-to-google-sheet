@@ -1,14 +1,15 @@
 import { Button, Col, InputNumber, Row } from 'antd'
 import Head from 'next/head'
-import { useState } from 'react'
 import Expenses from '../components/Expenses'
+// import GoogleSheetData from '../components/GoogleSheetData'
 import Groups from '../components/Groups'
 import SplitwiseLogin from '../components/SplitwiseLogin'
+import { useLocalStorage } from '../context/LocalStorage'
 import styles from '../styles/home.module.css'
 
 function Home() {
   const title = 'Export Splitwise Expenses to Google Sheet'
-  const [groupId, setGroupId] = useState(null)
+  const { groupId, setGroupId } = useLocalStorage()
 
   return (
     <>
@@ -50,6 +51,9 @@ function Home() {
             </Row>
             <br />
             <Expenses groupId={groupId} />
+          </Col>
+          <Col xs={24} md={12}>
+            {/* <GoogleSheetData /> */}
           </Col>
         </Row>
       </main>

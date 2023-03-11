@@ -1,6 +1,5 @@
 import { Table } from 'antd';
 import React from 'react';
-import { useToken } from '../../context/token';
 import useExpenses from '../../hooks/useExpenses';
 
 const columns = [
@@ -23,14 +22,12 @@ const columns = [
 
 function Expenses({ groupId }) {
     const { data } = useExpenses(groupId)
-
-    const { token } = useToken()
-    if (!token) {
-        return <></>
-    }
-
     return (
-        <Table dataSource={data?.expenses} columns={columns} />
+        <Table
+            dataSource={data?.expenses}
+            columns={columns}
+            rowKey='id'
+        />
     )
 }
 

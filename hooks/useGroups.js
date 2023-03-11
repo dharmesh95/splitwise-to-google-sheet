@@ -1,10 +1,10 @@
 import useSWR from 'swr';
-import { useToken } from '../context/token';
+import { useLocalStorage } from '../context/LocalStorage';
 
 const fetcher = url => fetch(url).then(r => r.json())
 
 export default function useGroups() {
-    const { token } = useToken()
+    const { token } = useLocalStorage()
     const { data, error } = useSWR(`/api/groups?token=${token}`,
         token ? fetcher : null,
         {

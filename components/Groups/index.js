@@ -1,8 +1,7 @@
-import React from 'react';
 import { Table } from 'antd';
-import useGroups from '../../hooks/useGroups';
 import moment from 'moment';
-import { useToken } from '../../context/token';
+import React from 'react';
+import useGroups from '../../hooks/useGroups';
 
 const columns = [
     {
@@ -28,19 +27,18 @@ const columns = [
 
 function Groups() {
     const { data } = useGroups()
-
-    const { token } = useToken()
-    if (!token) {
-        return <></>
-    }
-
-    return <Table
-        dataSource={data?.groups}
-        columns={columns}
-        pagination={{
-            pageSize: 5,
-        }}
-    />;
+    return (
+        <>
+            <Table
+                dataSource={data?.groups}
+                columns={columns}
+                pagination={{
+                    pageSize: 5,
+                }}
+                rowKey='id'
+            />
+        </>
+    )
 }
 
 export default Groups;

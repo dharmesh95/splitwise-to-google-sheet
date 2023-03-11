@@ -1,10 +1,10 @@
-import { TokenProvider } from '../context/token'
+import { StorageProvider } from '../context/LocalStorage'
 import '../global.css'
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <TokenProvider>
+    <StorageProvider>
       <Component {...pageProps} />
-    </TokenProvider>
+    </StorageProvider>
   )
 }
