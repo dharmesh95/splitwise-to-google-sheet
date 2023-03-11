@@ -72,10 +72,14 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies and load env
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Echo load env
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
+        run: echo ${TEST_SECRET}
+      - name: Build with Next.js
         env:
           NEXT_PUBLIC_SPLITWISE_CONSUMER_KEY: ${{ secrets.NEXT_PUBLIC_SPLITWISE_CONSUMER_KEY }}
           NEXT_PUBLIC_SPLITWISE_AUTHORIZE_URL: ${{ vars.NEXT_PUBLIC_SPLITWISE_AUTHORIZE_URL }}
-      - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
