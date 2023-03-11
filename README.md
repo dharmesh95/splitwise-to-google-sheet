@@ -1,13 +1,19 @@
-# GitHub Codespaces ♥️ Next.js
+# Splitwise to Google Sheet ♥️ Next.js
+Splitwise to Google Sheet is a web app that allows you to export your Splitwise expenses to Google Sheets with ease. You can view groups, expenses, and sync them with your Google sheets.
 
-Welcome to your shiny new Codespace running Next.js! We've got everything fired up and running for you to explore Next.js.
+# Features
+View expenses and groups with your friends or roommates
+Export your expenses to Google Sheets
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+# How to run
+To run NextSplit locally, you need to have Node.js and npm installed on your machine. Then follow these steps:
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+Clone this repository: `git clone https://github.com/dharmesh95/splitwise-to-google-sheet`
 
-To run this application:
+Install dependencies: `npm install`
 
-```
-npm run dev
-```
+Create a .env file in the root directory and add your Splitwise API and Google API keys and URL
+
+Start the development server: `npm run dev`
+
+Open http://localhost:3000 in your browser
