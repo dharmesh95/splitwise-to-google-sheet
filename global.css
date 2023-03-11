@@ -14,10 +14,11 @@ body {
   background-color: #eaebfe;
 }
 
-.login-btn {
+.splitwise-btn {
   height: 40px;
   width: 170px;
-  background-color: #FF7F00; /* Orange */
+  /* Orange */
+  background-color: #FF7F00;
   color: white;
   font-weight: bold;
   border: 1px solid;
@@ -27,6 +28,7 @@ body {
   cursor: pointer;
 }
 
-.hide-btn {
-  visibility: hidden;
+.logged-in-btn {
+  /* Green */
+  background-color: #48be9d;
 }

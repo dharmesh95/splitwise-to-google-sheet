@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Col, InputNumber, Row, Table } from 'antd';
-import useExpenses from '../../hooks/useExpenses';
+import { Table } from 'antd';
+import React from 'react';
 import { useToken } from '../../context/token';
+import useExpenses from '../../hooks/useExpenses';
 
 const columns = [
     {
@@ -21,8 +21,7 @@ const columns = [
     },
 ];
 
-function Expenses() {
-    const [groupId, setGroupId] = useState(null)
+function Expenses({ groupId }) {
     const { data } = useExpenses(groupId)
 
     const { token } = useToken()
@@ -31,30 +30,7 @@ function Expenses() {
     }
 
     return (
-        <>
-            <Row gutter={16}>
-                <Col className="gutter-row" span={6}>
-                    <InputNumber
-                        value={groupId} // The current value of the input
-                        onChange={setGroupId} // The function to call when value changes
-                        size="large" // The size of the input box
-                        placeholder="Enter group ID" // The placeholder text when empty
-                        style={{ width: '100%' }}
-                    />
-                </Col>
-                <Col className="gutter-row" span={10}>
-                    <Button
-                        type="primary"
-                        size="large"
-                        style={{ width: '100%' }}
-                    >
-                        Export to Google Sheets
-                    </Button>
-                </Col>
-            </Row>
-            <br />
-            <Table dataSource={data?.expenses} columns={columns} />
-        </>
+        <Table dataSource={data?.expenses} columns={columns} />
     )
 }
 

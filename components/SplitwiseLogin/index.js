@@ -4,19 +4,20 @@ import { useToken } from '../../context/token'
 
 const onFailure = response => console.error(response)
 
-const OAuth2 = () => {
-    const [className, setClassName] = useState('login-btn')
+const SplitwiseLogin = () => {
+    const [buttonText, setButtonText] = useState('Login to Splitwise')
+    const [className, setClassName] = useState('')
     const { token, setToken } = useToken();
 
     useEffect(() => {
         if (token) {
-            setClassName('hide-btn')
+            setClassName('logged-in-btn')
+            setButtonText('Spliwise Connected')
         }
     }, [token])
 
     const onSuccess = response => {
         setToken(response['access_token'])
-        setClassName('hide-btn')
     }
 
     return (
@@ -27,10 +28,10 @@ const OAuth2 = () => {
             redirectUri={''}
             onSuccess={onSuccess}
             onFailure={onFailure}
-            buttonText={'Login to Splitwise'}
-            className={className}
+            buttonText={buttonText}
+            className={`splitwise-btn ${className}`}
         />
     )
 }
 
-export default OAuth2
+export default SplitwiseLogin
