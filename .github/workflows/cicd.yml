@@ -91,7 +91,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        env:
-          NEXT_PUBLIC_SPLITWISE_CONSUMER_KEY: ${{ secrets.NEXT_PUBLIC_SPLITWISE_CONSUMER_KEY }}
-          NEXT_PUBLIC_SPLITWISE_AUTHORIZE_URL: ${{ vars.NEXT_PUBLIC_SPLITWISE_AUTHORIZE_URL }}
         uses: actions/deploy-pages@v1
