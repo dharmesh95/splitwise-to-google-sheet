@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import { useState } from 'react'
 import Expenses from '../components/Expenses'
 import Groups from '../components/Groups'
 import OAuth2 from '../components/SplitwiseLogin'
 import styles from '../styles/home.module.css'
 
 function Home() {
-  const title = 'Export Splitwise expenses to Google Sheet'
+  const title = 'Export Splitwise Expenses to Google Sheet'
 
   return (
     <>
@@ -20,6 +19,7 @@ function Home() {
         </h1>
         <OAuth2 />
         <Groups />
+        <br />
         <Expenses />
       </main>
     </>
