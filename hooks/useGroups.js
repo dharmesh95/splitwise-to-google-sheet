@@ -1,7 +1,6 @@
 import useSWR from 'swr';
 import { useLocalStorage } from '../context/LocalStorage';
-
-const fetcher = url => fetch(url).then(r => r.json())
+import { fetcher } from '../util/fetcher';
 
 export default function useGroups() {
     const { token } = useLocalStorage()

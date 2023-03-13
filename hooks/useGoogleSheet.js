@@ -1,10 +1,13 @@
 import useSWR from 'swr';
-
-const fetcher = url => fetch(url).then(r => r.json())
+import { useLocalStorage } from '../context/LocalStorage';
+import { fetcher } from '../util/fetcher';
 
 export default function useGoogleSheet() {
-    const { data, error } = useSWR(`/api/sheet`,
-        fetcher,
+    const { googleResponse, spreadsheet } = useLocalStorage()
+    const { id, name, range } = spreadsheet
+    const accessToken = googleResponse ? googleResponse['access_token'] : undefined
+    const { data, error } = useSWR(`/api/sheets/get?id=${id}&name=${name}&range=${range}&accessToken=${accessToken}`,
+        (id && name && range && accessToken) ? fetcher : null,
         {
             revalidateOnFocus: false,
             revalidateIfStale: false,

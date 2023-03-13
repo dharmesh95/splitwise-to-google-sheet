@@ -7,17 +7,30 @@ export const useLocalStorage = () => {
 };
 
 export const StorageProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
+  const [groupId, setGroupId] = useState(null);
+  const [googleResponse, setGoogleResponse] = useState(null);
+  const [spreadsheet, setSpreadsheet] = useState({
+    id: '1GhA2H9UHaab7-h5GVblae4efn2WFa61HrQ27iWxquus',
+    name: 'Mar 23 - Transactions',
+    range: 'B5:D50'
+  });
 
-  const [token, setToken] = useState(typeof window !== "undefined" ? window.localStorage.getItem("token") : null);
-  const [groupId, setGroupId] = useState(typeof window !== "undefined" ? window.localStorage.getItem("groupId") : null);
+  /* set all from local storage */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setToken(window.localStorage.getItem("token"))
+      setGroupId(window.localStorage.getItem("groupId"))
+      setGoogleResponse(JSON.parse(window.localStorage.getItem("googleResponse")))
+      setSpreadsheet(JSON.parse(window.localStorage.getItem("spreadsheet")))
+    }
+  }, [])
 
   /* token */
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (token) {
         window.localStorage.setItem("token", token);
-      } else {
-        window.localStorage.removeItem("token");
       }
     }
   }, [token]);
@@ -27,14 +40,41 @@ export const StorageProvider = ({ children }) => {
     if (typeof window !== "undefined") {
       if (groupId) {
         window.localStorage.setItem("groupId", groupId);
-      } else {
-        window.localStorage.removeItem("groupId");
       }
     }
-  }, [token, groupId]);
+  }, [groupId]);
+
+  /* googleResponse */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (googleResponse) {
+        window.localStorage.setItem("googleResponse", JSON.stringify(googleResponse));
+      }
+    }
+  }, [googleResponse]);
+
+  /* spreadsheet */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (spreadsheet) {
+        window.localStorage.setItem("spreadsheet", JSON.stringify(spreadsheet));
+      }
+    }
+  }, [spreadsheet]);
 
   return (
-    <StorageContext.Provider value={{ token, setToken, groupId, setGroupId }}>
+    <StorageContext.Provider value={
+      {
+        token,
+        setToken,
+        groupId,
+        setGroupId,
+        googleResponse,
+        setGoogleResponse,
+        spreadsheet,
+        setSpreadsheet
+      }
+    }>
       {children}
     </StorageContext.Provider>
   );

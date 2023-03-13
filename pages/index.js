@@ -1,15 +1,45 @@
-import { Button, Col, InputNumber, Row } from 'antd'
+import { useGoogleLogin } from '@react-oauth/google'
+import { Button, Col, Input, InputNumber, Row } from 'antd'
 import Head from 'next/head'
 import Expenses from '../components/Expenses'
-// import GoogleSheetData from '../components/GoogleSheetData'
+import GoogleSheet from '../components/GoogleSheet'
 import Groups from '../components/Groups'
 import SplitwiseLogin from '../components/SplitwiseLogin'
 import { useLocalStorage } from '../context/LocalStorage'
+import useExpenses from '../hooks/useExpenses'
 import styles from '../styles/home.module.css'
+
+const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 function Home() {
   const title = 'Export Splitwise Expenses to Google Sheet'
-  const { groupId, setGroupId } = useLocalStorage()
+  const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet } = useLocalStorage()
+  const { data: expenseData } = useExpenses(groupId)
+  const { id, name, range } = spreadsheet
+  const accessToken = googleResponse ? googleResponse['access_token'] : undefined
+
+  const onLoginSuccess = (codeResponse) => {
+    setGoogleResponse(codeResponse)
+  }
+
+  const login = useGoogleLogin({
+    scope: SCOPE,
+    flow: 'implicit',
+    onError: (error) => console.log(error),
+    onSuccess: (codeResponse) => onLoginSuccess(codeResponse)
+  });
+
+  const exportToGoogleSheet = () => {
+    console.log(expenseData?.expenses)
+    const data = expenseData?.expenses?.map(obj => ([obj.date, obj.cost, obj.description]))
+    console.log(data)
+    fetch(`/api/sheets/export?id=${id}&name=${name}&range=${range}&accessToken=${accessToken}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        values: data
+      })
+    })
+  }
 
   return (
     <>
@@ -29,7 +59,10 @@ function Home() {
             <Groups />
           </Col>
           <Col xs={24} md={12}>
-            <Row gutter={16}>
+            <Row gutter={16} align='middle'>
+              <Col>
+                <b>{'Enter Splitwise Group ID: '}</b>
+              </Col>
               <Col span={8}>
                 <InputNumber
                   value={groupId} // The current value of the input
@@ -39,21 +72,68 @@ function Home() {
                   style={{ width: '100%' }}
                 />
               </Col>
-              <Col span={12} offset={4}>
-                <Button
+            </Row>
+            <br />
+            <Row gutter={16} align='middle'>
+              <Expenses groupId={groupId} />
+            </Row>
+          </Col>
+        </Row>
+        <h1>Google Sheet Data</h1>
+        <Row gutter={[16, 24]}>
+          <Col xs={24} md={12}>
+            <>
+              {!googleResponse
+                ? <Button
                   type="primary"
                   size="large"
-                  style={{ width: '100%' }}
+                  style={{ width: '70%' }}
+                  onClick={() => login()}
+                >
+                  Log in to Google Sheets
+                </Button>
+                : <Button
+                  type="primary"
+                  size="large"
+                  style={{ width: '70%' }}
+                  onClick={() => exportToGoogleSheet()}
                 >
                   Export to Google Sheets
                 </Button>
-              </Col>
-            </Row>
+              }
+              <br />
+              <br />
+            </>
+            <b>{'Enter SpreadSheet ID: '}</b>
+            <Input
+              value={spreadsheet.id}
+              onChange={(e) => setSpreadsheet({ ...spreadsheet, id: e.target.value })}
+              size="large"
+              placeholder="Enter SpreadSheet ID"
+            />
             <br />
-            <Expenses groupId={groupId} />
+            <br />
+            <b>{'Enter SpreadSheet Name: '}</b>
+            <Input
+              value={spreadsheet.name}
+              onChange={(e) => setSpreadsheet({ ...spreadsheet, name: e.target.value })}
+              size="large"
+              placeholder="Enter SpreadSheet Name"
+            />
+            <br />
+            <br />
+            <b>{'Enter SpreadSheet Range: '}</b>
+            <Input
+              value={spreadsheet.range}
+              onChange={(e) => setSpreadsheet({ ...spreadsheet, range: e.target.value })}
+              size="large"
+              placeholder="Enter SpreadSheet Range"
+            />
+            <br />
+            <br />
           </Col>
           <Col xs={24} md={12}>
-            {/* <GoogleSheetData /> */}
+            <GoogleSheet />
           </Col>
         </Row>
       </main>

@@ -27,6 +27,9 @@ function Expenses({ groupId }) {
             dataSource={data?.expenses}
             columns={columns}
             rowKey='id'
+            pagination={{
+                pageSize: 5,
+            }}
         />
     )
 }

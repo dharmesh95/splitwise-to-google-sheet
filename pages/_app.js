@@ -1,10 +1,13 @@
 import { StorageProvider } from '../context/LocalStorage'
 import '../global.css'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <StorageProvider>
-      <Component {...pageProps} />
+      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+        <Component {...pageProps} />
+      </GoogleOAuthProvider>
     </StorageProvider>
   )
 }
