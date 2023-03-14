@@ -74,9 +74,7 @@ function Home() {
               </Col>
             </Row>
             <br />
-            <Row gutter={16} align='middle'>
-              <Expenses groupId={groupId} />
-            </Row>
+            <Expenses groupId={groupId} />
           </Col>
         </Row>
         <h1>Google Sheet Data</h1>
