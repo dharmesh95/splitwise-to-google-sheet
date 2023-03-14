@@ -2,8 +2,10 @@
 Splitwise to Google Sheet is a web app that allows you to export your Splitwise expenses to Google Sheets with ease. You can view groups, expenses, and sync them with your Google sheets.
 
 # Features
-View expenses and groups with your friends or roommates
-Export your expenses to Google Sheets
+
+- View expenses and groups with your friends or roommates
+
+- Export your expenses to Google Sheets
 
 # How to run
 To run NextSplit locally, you need to have Node.js and npm installed on your machine. Then follow these steps:
