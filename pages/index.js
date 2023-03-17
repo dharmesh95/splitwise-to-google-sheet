@@ -15,7 +15,7 @@ function Home() {
   const title = 'Export Splitwise Expenses to Google Sheet'
   const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet } = useLocalStorage()
   const { data: expenseData } = useExpenses(groupId)
-  const { id, name, range } = spreadsheet
+  const { id, name, range } = spreadsheet ?? {}
   const accessToken = googleResponse ? googleResponse['access_token'] : undefined
 
   const onLoginSuccess = (codeResponse) => {
@@ -104,7 +104,7 @@ function Home() {
             </>
             <b>{'Enter SpreadSheet ID: '}</b>
             <Input
-              value={spreadsheet.id}
+              value={spreadsheet?.id}
               onChange={(e) => setSpreadsheet({ ...spreadsheet, id: e.target.value })}
               size="large"
               placeholder="Enter SpreadSheet ID"
@@ -113,7 +113,7 @@ function Home() {
             <br />
             <b>{'Enter SpreadSheet Name: '}</b>
             <Input
-              value={spreadsheet.name}
+              value={spreadsheet?.name}
               onChange={(e) => setSpreadsheet({ ...spreadsheet, name: e.target.value })}
               size="large"
               placeholder="Enter SpreadSheet Name"
@@ -122,7 +122,7 @@ function Home() {
             <br />
             <b>{'Enter SpreadSheet Range: '}</b>
             <Input
-              value={spreadsheet.range}
+              value={spreadsheet?.range}
               onChange={(e) => setSpreadsheet({ ...spreadsheet, range: e.target.value })}
               size="large"
               placeholder="Enter SpreadSheet Range"
