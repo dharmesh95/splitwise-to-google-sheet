@@ -19,10 +19,18 @@ export const StorageProvider = ({ children }) => {
   /* set all from local storage */
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setToken(window.localStorage.getItem("token"))
-      setGroupId(window.localStorage.getItem("groupId"))
-      setGoogleResponse(JSON.parse(window.localStorage.getItem("googleResponse")))
-      setSpreadsheet(JSON.parse(window.localStorage.getItem("spreadsheet")))
+      if (window.localStorage.getItem("token")) {
+        setToken(window.localStorage.getItem("token"))
+      }
+      if (window.localStorage.getItem("groupId")) {
+        setGroupId(window.localStorage.getItem("groupId"))
+      }
+      if (window.localStorage.getItem("googleResponse")) {
+        setGoogleResponse(JSON.parse(window.localStorage.getItem("googleResponse")))
+      }
+      if (window.localStorage.getItem("spreadsheet")) {
+        setSpreadsheet(JSON.parse(window.localStorage.getItem("spreadsheet")))
+      }
     }
   }, [])
 

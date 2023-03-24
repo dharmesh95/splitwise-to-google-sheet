@@ -8,7 +8,10 @@ import SplitwiseLogin from '../components/SplitwiseLogin'
 import { useLocalStorage } from '../context/LocalStorage'
 import useExpenses from '../hooks/useExpenses'
 import styles from '../styles/home.module.css'
+import { getAmount } from '../util/amount'
 
+const D_USER_ID = 7743509
+const N_USER_ID = 56707094
 const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 function Home() {
@@ -30,9 +33,7 @@ function Home() {
   });
 
   const exportToGoogleSheet = () => {
-    console.log(expenseData?.expenses)
-    const data = expenseData?.expenses?.map(obj => ([obj.date, obj.cost, obj.description]))
-    console.log(data)
+    const data = expenseData?.expenses?.map(obj => ([obj.date, getAmount(obj.users, [D_USER_ID, N_USER_ID]), obj.description]))
     fetch(`/api/sheets/export?id=${id}&name=${name}&range=${range}&accessToken=${accessToken}`, {
       method: 'PUT',
       body: JSON.stringify({

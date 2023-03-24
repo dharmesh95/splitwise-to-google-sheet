@@ -16,8 +16,8 @@ export default async (req, res) => {
     const data = {
       expenses: rawData.expenses?.map(e => ({
         ...e,
-        date: e.date.split('T')[0]//moment(e.date).tz('America/Toronto').format('LLL')
-      }))
+        date: e.date.split('T')[0]
+      }))?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     }
     res.status(200).json(data)
   } catch (error) {
