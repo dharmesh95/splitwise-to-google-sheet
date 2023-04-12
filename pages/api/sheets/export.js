@@ -1,8 +1,10 @@
-const DATA = [['2/1/2023', '$1,232.67', 'Rent Feb']]
-
 export default async (req, res) => {
     try {
-        let url = `https://sheets.googleapis.com/v4/spreadsheets/${req.query.id}/values/${req.query.name}!${req.query.range}?valueInputOption=USER_ENTERED`;
+        const spreadsheetId = encodeURIComponent(req.query.id);
+        const sheetName = encodeURIComponent(req.query.name);
+        const range = encodeURIComponent(req.query.range);
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!${range}?valueInputOption=USER_ENTERED`;
+
         let options = {
             method: "PUT",
             headers: {

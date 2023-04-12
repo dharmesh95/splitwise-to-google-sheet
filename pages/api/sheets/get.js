@@ -1,6 +1,10 @@
 export default async (req, res) => {
     try {
-        let url = `https://sheets.googleapis.com/v4/spreadsheets/${req.query.id}/values/${req.query.name}!${req.query.range}`;
+        const spreadsheetId = encodeURIComponent(req.query.id);
+        const sheetName = encodeURIComponent(req.query.name);
+        const range = encodeURIComponent(req.query.range);
+
+        let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!${range}`;
 
         let options = {
             method: "GET",
