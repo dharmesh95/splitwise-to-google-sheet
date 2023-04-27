@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import React from "react";
 import { useLocalStorage } from "../../context/LocalStorage";
+import useGetSheets from "../../hooks/useGetSheets";
 import useGoogleSheet from "../../hooks/useGoogleSheet";
 
 const columns = [
@@ -25,6 +26,8 @@ const columns = [
 function GoogleSheet() {
     const { googleResponse } = useLocalStorage()
     const { data: sheetData } = useGoogleSheet()
+    const spreadsheets = useGetSheets()
+    console.log(spreadsheets)
 
     return (
         <>

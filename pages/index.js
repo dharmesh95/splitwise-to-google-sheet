@@ -12,7 +12,7 @@ import { getAmount } from '../util/amount'
 
 const D_USER_ID = 7743509
 const N_USER_ID = 56707094
-const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
+const SCOPE = "https://www.googleapis.com/auth/drive.readonly";
 
 function Home() {
   const title = 'Export Splitwise Expenses to Google Sheet'
