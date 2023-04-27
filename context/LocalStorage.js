@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { getSheetName } from "../util/date";
 
 const StorageContext = createContext();
 
@@ -10,9 +11,10 @@ export const StorageProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [groupId, setGroupId] = useState(null);
   const [googleResponse, setGoogleResponse] = useState(null);
+  const sheetName = getSheetName()
   const [spreadsheet, setSpreadsheet] = useState({
     id: '1GhA2H9UHaab7-h5GVblae4efn2WFa61HrQ27iWxquus',
-    name: 'Mar 23 - Transactions',
+    name: sheetName,
     range: 'B5:D50'
   });
 
