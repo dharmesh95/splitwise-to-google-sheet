@@ -1,6 +1,8 @@
 # Splitwise to Google Sheet ♥️ Next.js
 Splitwise to Google Sheet is a web app that allows you to export your Splitwise expenses to Google Sheets with ease. You can view groups, expenses, and sync them with your Google sheets.
 
+https://splitwise-to-google-sheet.vercel.app/
+
 # Features
 
 - View expenses and groups with your friends or roommates
