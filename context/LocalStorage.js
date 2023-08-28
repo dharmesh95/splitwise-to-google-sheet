@@ -72,6 +72,13 @@ export const StorageProvider = ({ children }) => {
     }
   }, [spreadsheet]);
 
+  const clearSession = () => {
+    setToken()
+    setGroupId()
+    setGoogleResponse()
+    setSpreadsheet()
+  }
+
   return (
     <StorageContext.Provider value={
       {
@@ -82,7 +89,8 @@ export const StorageProvider = ({ children }) => {
         googleResponse,
         setGoogleResponse,
         spreadsheet,
-        setSpreadsheet
+        setSpreadsheet,
+        clearSession
       }
     }>
       {children}

@@ -42,6 +42,10 @@ function Home() {
     })
   }
 
+  const clearSession = () => {
+    setGoogleResponse(undefined)
+  }
+
   return (
     <>
       <Head>
@@ -52,6 +56,15 @@ function Home() {
         <h1 className="title">
           {title}!
         </h1>
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => clearSession()}
+        >
+          Clear session
+        </Button>
+        <br />
+        <br />
         <Row gutter={[16, 24]}>
           <Col xs={24} md={12}>
             <SplitwiseLogin />
