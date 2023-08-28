@@ -73,10 +73,10 @@ export const StorageProvider = ({ children }) => {
   }, [spreadsheet]);
 
   const clearSession = () => {
-    setToken()
-    setGroupId()
-    setGoogleResponse()
-    setSpreadsheet()
+    setToken(null)
+    setGroupId(null)
+    setGoogleResponse(null)
+    setSpreadsheet(null)
   }
 
   return (
