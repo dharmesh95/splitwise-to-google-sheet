@@ -15,7 +15,7 @@ export const StorageProvider = ({ children }) => {
   const [spreadsheet, setSpreadsheet] = useState({
     id: '1GhA2H9UHaab7-h5GVblae4efn2WFa61HrQ27iWxquus',
     name: sheetName,
-    range: 'B5:D50'
+    range: 'B8:D50'
   });
 
   /* set all from local storage */
