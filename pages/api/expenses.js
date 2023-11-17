@@ -14,10 +14,13 @@ export default async (req, res) => {
     const response = await fetch(`https://secure.splitwise.com/api/v3.0/get_expenses?group_id=${req.query.groupId}&limit=1000`, requestOptions)
     const rawData = await response.json()
     const data = {
-      expenses: rawData.expenses?.map(e => ({
-        ...e,
-        date: moment.utc(e.date).tz('America/Toronto').format().split('T')[0]
-      }))?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      expenses: rawData.expenses
+        ?.filter(e => e.deleted_at === null)
+        ?.map(e => ({
+          ...e,
+          date: moment.utc(e.date).tz('America/Toronto').format().split('T')[0]
+        }))
+        ?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     }
     res.status(200).json(data)
   } catch (error) {
