@@ -1,4 +1,4 @@
-import { StorageProvider } from '../context/LocalStorage'
+import { StorageProvider } from '../context/SessionStorage'
 import '../global.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 

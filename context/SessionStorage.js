@@ -3,7 +3,7 @@ import { getSheetName } from "../util/date";
 
 const StorageContext = createContext();
 
-export const useLocalStorage = () => {
+export const useSessionStorage = () => {
   return useContext(StorageContext);
 };
 
@@ -18,20 +18,20 @@ export const StorageProvider = ({ children }) => {
     range: 'B8:D50'
   });
 
-  /* set all from local storage */
+  /* set all from session storage */
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (window.localStorage.getItem("token")) {
-        setToken(window.localStorage.getItem("token"))
+      if (window.sessionStorage.getItem("token")) {
+        setToken(window.sessionStorage.getItem("token"))
       }
-      if (window.localStorage.getItem("groupId")) {
-        setGroupId(window.localStorage.getItem("groupId"))
+      if (window.sessionStorage.getItem("groupId")) {
+        setGroupId(window.sessionStorage.getItem("groupId"))
       }
-      if (window.localStorage.getItem("googleResponse")) {
-        setGoogleResponse(JSON.parse(window.localStorage.getItem("googleResponse")))
+      if (window.sessionStorage.getItem("googleResponse")) {
+        setGoogleResponse(JSON.parse(window.sessionStorage.getItem("googleResponse")))
       }
-      if (window.localStorage.getItem("spreadsheet")) {
-        setSpreadsheet(JSON.parse(window.localStorage.getItem("spreadsheet")))
+      if (window.sessionStorage.getItem("spreadsheet")) {
+        setSpreadsheet(JSON.parse(window.sessionStorage.getItem("spreadsheet")))
       }
     }
   }, [])
@@ -40,7 +40,7 @@ export const StorageProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (token) {
-        window.localStorage.setItem("token", token);
+        window.sessionStorage.setItem("token", token);
       }
     }
   }, [token]);
@@ -49,7 +49,7 @@ export const StorageProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (groupId) {
-        window.localStorage.setItem("groupId", groupId);
+        window.sessionStorage.setItem("groupId", groupId);
       }
     }
   }, [groupId]);
@@ -58,7 +58,7 @@ export const StorageProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (googleResponse) {
-        window.localStorage.setItem("googleResponse", JSON.stringify(googleResponse));
+        window.sessionStorage.setItem("googleResponse", JSON.stringify(googleResponse));
       }
     }
   }, [googleResponse]);
@@ -67,16 +67,16 @@ export const StorageProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (spreadsheet) {
-        window.localStorage.setItem("spreadsheet", JSON.stringify(spreadsheet));
+        window.sessionStorage.setItem("spreadsheet", JSON.stringify(spreadsheet));
       }
     }
   }, [spreadsheet]);
 
   const clearSession = () => {
-    window.localStorage.removeItem("token")
-    window.localStorage.removeItem("groupId")
-    window.localStorage.removeItem("googleResponse")
-    window.localStorage.removeItem("spreadsheet")
+    window.sessionStorage.removeItem("token")
+    window.sessionStorage.removeItem("groupId")
+    window.sessionStorage.removeItem("googleResponse")
+    window.sessionStorage.removeItem("spreadsheet")
   }
 
   return (

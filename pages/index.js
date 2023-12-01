@@ -5,7 +5,7 @@ import Expenses from '../components/Expenses'
 import GoogleSheet from '../components/GoogleSheet'
 import Groups from '../components/Groups'
 import SplitwiseLogin from '../components/SplitwiseLogin'
-import { useLocalStorage } from '../context/LocalStorage'
+import { useSessionStorage } from '../context/SessionStorage'
 import useExpenses from '../hooks/useExpenses'
 import styles from '../styles/home.module.css'
 import { getAmount } from '../util/amount'
@@ -16,7 +16,7 @@ const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 function Home() {
   const title = 'Export Splitwise Expenses to Google Sheet'
-  const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet } = useLocalStorage()
+  const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet } = useSessionStorage()
   const { data: expenseData } = useExpenses(groupId)
   const { id, name, range } = spreadsheet ?? {}
   const accessToken = googleResponse ? googleResponse['access_token'] : undefined
