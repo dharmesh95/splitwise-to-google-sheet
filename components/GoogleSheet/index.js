@@ -1,7 +1,8 @@
 import { Table } from "antd";
 import React from "react";
-import { useSessionStorage } from "../../context/SessionStorage";
+import { useSessionStorage } from "../../context/Storage";
 import useGoogleSheet from "../../hooks/useGoogleSheet";
+import { PAGINATION } from "../../constants/page";
 
 const columns = [
     {
@@ -28,13 +29,12 @@ function GoogleSheet() {
 
     return (
         <>
+            <h2>Google SpreadSheet Data</h2>
             {googleResponse && <Table
                 dataSource={sheetData?.values}
                 columns={columns}
                 rowKey='id'
-                pagination={{
-                    pageSize: 5,
-                }}
+               pagination={PAGINATION}
             />}
         </>
     );

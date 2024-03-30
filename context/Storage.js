@@ -17,6 +17,7 @@ export const StorageProvider = ({ children }) => {
     name: sheetName,
     range: 'B8:D50'
   });
+  const [userIdsStr, setUserIdsStr] = useState('7743509,56707094')
 
   /* set all from session storage */
   useEffect(() => {
@@ -30,8 +31,11 @@ export const StorageProvider = ({ children }) => {
       if (window.sessionStorage.getItem("googleResponse")) {
         setGoogleResponse(JSON.parse(window.sessionStorage.getItem("googleResponse")))
       }
-      if (window.sessionStorage.getItem("spreadsheet")) {
+      if (window.localStorage.getItem("spreadsheet")) {
         setSpreadsheet(JSON.parse(window.sessionStorage.getItem("spreadsheet")))
+      }
+      if (window.localStorage.getItem("userIdsStr")) {
+        setUserIdsStr(window.sessionStorage.getItem("userIdsStr"))
       }
     }
   }, [])
@@ -67,16 +71,27 @@ export const StorageProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (spreadsheet) {
-        window.sessionStorage.setItem("spreadsheet", JSON.stringify(spreadsheet));
+        window.localStorage.setItem("spreadsheet", JSON.stringify(spreadsheet));
       }
     }
   }, [spreadsheet]);
 
+  /* userIdsStr */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (userIdsStr) {
+        window.localStorage.setItem("userIdsStr", userIdsStr);
+      }
+    }
+  }, [userIdsStr]);
+
   const clearSession = () => {
     window.sessionStorage.removeItem("token")
-    window.sessionStorage.removeItem("groupId")
     window.sessionStorage.removeItem("googleResponse")
-    window.sessionStorage.removeItem("spreadsheet")
+    window.sessionStorage.removeItem("groupId")
+
+    window.localStorage.removeItem("userIdsStr")
+    window.localStorage.removeItem("spreadsheet")
   }
 
   return (
@@ -84,13 +99,20 @@ export const StorageProvider = ({ children }) => {
       {
         token,
         setToken,
+
         groupId,
         setGroupId,
+
         googleResponse,
         setGoogleResponse,
+
         spreadsheet,
         setSpreadsheet,
-        clearSession
+
+        userIdsStr,
+        setUserIdsStr,
+
+        clearSession,
       }
     }>
       {children}

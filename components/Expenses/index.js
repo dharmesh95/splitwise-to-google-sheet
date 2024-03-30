@@ -1,6 +1,7 @@
 import { Table } from 'antd';
 import React from 'react';
 import useExpenses from '../../hooks/useExpenses';
+import { PAGINATION } from '../../constants/page';
 
 const columns = [
     {
@@ -23,14 +24,15 @@ const columns = [
 function Expenses({ groupId }) {
     const { data } = useExpenses(groupId)
     return (
-        <Table
-            dataSource={data?.expenses}
-            columns={columns}
-            rowKey='id'
-            pagination={{
-                pageSize: 5,
-            }}
-        />
+        <>
+            <h2>Expenses</h2>
+            <Table
+                dataSource={data?.expenses}
+                columns={columns}
+                rowKey='id'
+               pagination={PAGINATION}
+            />
+        </>
     )
 }
 

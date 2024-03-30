@@ -4,19 +4,20 @@ import Head from 'next/head'
 import Expenses from '../components/Expenses'
 import GoogleSheet from '../components/GoogleSheet'
 import Groups from '../components/Groups'
+import Members from '../components/Members'
 import SplitwiseLogin from '../components/SplitwiseLogin'
-import { useSessionStorage } from '../context/SessionStorage'
+import { useSessionStorage } from '../context/Storage'
 import useExpenses from '../hooks/useExpenses'
 import styles from '../styles/home.module.css'
 import { getAmount } from '../util/amount'
+import useUserId from '../hooks/useUserId'
 
-const D_USER_ID = 7743509
-const N_USER_ID = 56707094
 const SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 function Home() {
-  const title = 'Export Splitwise Expenses to Google Sheet'
-  const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet } = useSessionStorage()
+  const title = 'Export Splitwise Group Expenses to Google Sheet'
+  const { googleResponse, setGoogleResponse, groupId, setGroupId, spreadsheet, setSpreadsheet, userIdsStr, setUserIdsStr } = useSessionStorage()
+  const { data: userData } = useUserId()
   const { data: expenseData } = useExpenses(groupId)
   const { id, name, range } = spreadsheet ?? {}
   const accessToken = googleResponse ? googleResponse['access_token'] : undefined
@@ -33,17 +34,19 @@ function Home() {
   });
 
   const exportToGoogleSheet = () => {
-    const data = expenseData?.expenses?.map(obj => ([obj.date, getAmount(obj.users, [D_USER_ID, N_USER_ID]), obj.description]))
+    const data = expenseData?.expenses?.map(obj => (
+      [
+        obj.date,
+        getAmount(obj.users, userIdsStr?.split(',')),
+        obj.description
+      ]
+    ))
     fetch(`/api/sheets/export?id=${id}&name=${name}&range=${range}&accessToken=${accessToken}`, {
       method: 'PUT',
       body: JSON.stringify({
         values: data
       })
     })
-  }
-
-  const clearSession = () => {
-    setGoogleResponse(undefined)
   }
 
   return (
@@ -56,26 +59,15 @@ function Home() {
         <h1 className="title">
           {title}!
         </h1>
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => clearSession()}
-        >
-          Clear session
-        </Button>
-        <br />
-        <br />
+        <SplitwiseLogin />
         <Row gutter={[16, 24]}>
-          <Col xs={24} md={12}>
-            <SplitwiseLogin />
-            <br />
-            <br />
+          <Col xs={24}>
             <Groups />
           </Col>
-          <Col xs={24} md={12}>
-            <Row gutter={16} align='middle'>
+          <Col xs={24}>
+            <Row gutter={16}>
               <Col>
-                <b>{'Enter Splitwise Group ID: '}</b>
+                <b>{'Selected Splitwise Group ID: '}</b>
               </Col>
               <Col span={8}>
                 <InputNumber
@@ -87,8 +79,14 @@ function Home() {
                 />
               </Col>
             </Row>
-            <br />
-            <Expenses groupId={groupId} />
+            <Row gutter={16}>
+              <Col xs={12}>
+                <Expenses groupId={groupId} />
+              </Col>
+              <Col xs={12}>
+                <Members groupId={groupId} />
+              </Col>
+            </Row>
           </Col>
         </Row>
         <h1>Google Sheet Data</h1>
@@ -140,6 +138,15 @@ function Home() {
               onChange={(e) => setSpreadsheet({ ...spreadsheet, range: e.target.value })}
               size="large"
               placeholder="Enter SpreadSheet Range"
+            />
+            <br />
+            <br />
+            <b>{`Enter User IDs (Your user id - ${userData?.user?.id}): `}</b>
+            <Input
+              value={userIdsStr}
+              onChange={(e) => setUserIdsStr(e.target.value)}
+              size="large"
+              placeholder="1234,5678"
             />
             <br />
             <br />

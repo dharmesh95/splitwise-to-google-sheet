@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import OAuth2Login from 'react-simple-oauth2-login'
-import { useSessionStorage } from '../../context/SessionStorage'
+import { useSessionStorage } from '../../context/Storage'
 
 const onFailure = response => console.error(response)
 
@@ -17,6 +17,7 @@ const SplitwiseLogin = () => {
     }, [token])
 
     const onSuccess = response => {
+        console.log(response)
         setToken(response['access_token'])
     }
 
