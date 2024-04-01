@@ -1,6 +1,6 @@
 export const getAmount = (users, myUsers) => {
     const amount = users.reduce((prev, curr) => {
-        if (myUsers.includes(curr.user_id)) {
+        if (myUsers.includes(curr.user_id.toString())) {
             return prev + Number(curr.owed_share)
         }
         return prev

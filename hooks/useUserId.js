@@ -1,10 +1,10 @@
 import useSWR from 'swr';
-import { useSessionStorage } from '../context/Storage';
+import { useStorage } from '../context/Storage';
 import { fetcher } from '../util/fetcher';
 import { swrConfig } from '../constants/fetch';
 
 export default function useUserId() {
-    const { token } = useSessionStorage()
+    const { token } = useStorage()
     const { data, error } = useSWR(`/api/user?token=${token}`,
         fetcher,
         swrConfig

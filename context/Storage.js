@@ -3,7 +3,7 @@ import { getSheetName } from "../util/date";
 
 const StorageContext = createContext();
 
-export const useSessionStorage = () => {
+export const useStorage = () => {
   return useContext(StorageContext);
 };
 
@@ -32,10 +32,10 @@ export const StorageProvider = ({ children }) => {
         setGoogleResponse(JSON.parse(window.sessionStorage.getItem("googleResponse")))
       }
       if (window.localStorage.getItem("spreadsheet")) {
-        setSpreadsheet(JSON.parse(window.sessionStorage.getItem("spreadsheet")))
+        setSpreadsheet(JSON.parse(window.localStorage.getItem("spreadsheet")))
       }
       if (window.localStorage.getItem("userIdsStr")) {
-        setUserIdsStr(window.sessionStorage.getItem("userIdsStr"))
+        setUserIdsStr(window.localStorage.getItem("userIdsStr"))
       }
     }
   }, [])

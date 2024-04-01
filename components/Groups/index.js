@@ -2,7 +2,7 @@ import { Radio, Table } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
 import useGroups from '../../hooks/useGroups';
-import { useSessionStorage } from '../../context/Storage';
+import { useStorage } from '../../context/Storage';
 import { PAGINATION } from '../../constants/page';
 
 const columns = [
@@ -31,7 +31,7 @@ const columns = [
 
 function Groups() {
     const { data } = useGroups()
-    const { setGroupId } = useSessionStorage()
+    const { setGroupId } = useStorage()
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {

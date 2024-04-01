@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import React from "react";
-import { useSessionStorage } from "../../context/Storage";
+import { useStorage } from "../../context/Storage";
 import useGoogleSheet from "../../hooks/useGoogleSheet";
 import { PAGINATION } from "../../constants/page";
 
@@ -24,7 +24,7 @@ const columns = [
 
 // create a functional component
 function GoogleSheet() {
-    const { googleResponse } = useSessionStorage()
+    const { googleResponse } = useStorage()
     const { data: sheetData } = useGoogleSheet()
 
     return (
