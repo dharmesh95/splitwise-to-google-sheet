@@ -4,6 +4,7 @@ Splitwise to Google Sheet is a web app that allows you to export your Splitwise 
 https://splitsheet.vercel.app/
 
 https://splitwise-to-google-sheet.vercel.app/
+<img width="326" alt="image" src="https://github.com/dharmesh95/splitwise-to-google-sheet/assets/33230776/b985eaa7-b040-4ac9-9099-f523773b4fbc">
 
 # Features
 
