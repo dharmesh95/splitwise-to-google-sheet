@@ -17,7 +17,11 @@ export const StorageProvider = ({ children }) => {
     name: sheetName,
     range: 'B8:D50'
   });
-  const [userIdsStr, setUserIdsStr] = useState('7743509,56707094')
+  const [userIdsStr, setUserIdsStr] = useState('7743509,56707094');
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  });
 
   /* set all from session storage */
   useEffect(() => {
@@ -36,6 +40,9 @@ export const StorageProvider = ({ children }) => {
       }
       if (window.localStorage.getItem("userIdsStr")) {
         setUserIdsStr(window.localStorage.getItem("userIdsStr"))
+      }
+      if (window.localStorage.getItem("selectedMonth")) {
+        setSelectedMonth(window.localStorage.getItem("selectedMonth"))
       }
     }
   }, [])
@@ -85,6 +92,15 @@ export const StorageProvider = ({ children }) => {
     }
   }, [userIdsStr]);
 
+  /* selectedMonth */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (selectedMonth) {
+        window.localStorage.setItem("selectedMonth", selectedMonth);
+      }
+    }
+  }, [selectedMonth]);
+
   const clearSession = () => {
     window.sessionStorage.removeItem("token")
     window.sessionStorage.removeItem("googleResponse")
@@ -111,6 +127,9 @@ export const StorageProvider = ({ children }) => {
 
         userIdsStr,
         setUserIdsStr,
+
+        selectedMonth,
+        setSelectedMonth,
 
         clearSession,
       }
